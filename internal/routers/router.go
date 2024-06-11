@@ -1,8 +1,7 @@
 package routers
 
 import (
-	"net/http"
-
+	c "github.com/KiAnh2911/go-crm-api-shop/internal/controller"
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,17 +10,12 @@ func NewRouter() *gin.Engine {
 
 	v1 := r.Group("/v1")
 	{
-		v1.GET("/ping", Pong)
-		v1.POST("/ping", Pong)
-		v1.PUT("/ping", Pong)
-		v1.DELETE("/ping", Pong)
+		v1.GET("/ping", c.NewPongController().Pong)
+		// v1.POST("/ping", Pong)
+		// v1.PUT("/ping", Pong)
+		// v1.DELETE("/ping", Pong)
+		v1.GET("/user/1", c.NewUserController().GetUserByID)
 	}
 
 	return r
-}
-
-func Pong(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"message": "pong",
-	})
 }
