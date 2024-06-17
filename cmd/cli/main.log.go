@@ -35,6 +35,7 @@ func main() {
 	encode := getEncoderLog()
 	sync := getWriterSync()
 	core := zapcore.NewCore(encode, sync, zapcore.InfoLevel)
+	// thêm AddCaller mới log ra "caller":"cli/main.log.go:24"
 	logger := zap.New(core, zap.AddCaller())
 	logger.Info("Info log", zap.Int("line", 1))
 	logger.Info("Error log", zap.Int("line", 1))
@@ -45,7 +46,7 @@ func getEncoderLog() zapcore.Encoder {
 
 	// 177234832.84634 => 2024-05-26T16:16:07.877+0700
 	encodeConfig.EncodeTime = zapcore.ISO8601TimeEncoder
-	//ts => Time
+	// convert ts => Time
 	encodeConfig.TimeKey = "Time"
 	// from info to INFO
 	encodeConfig.EncodeLevel = zapcore.CapitalLevelEncoder
@@ -54,6 +55,8 @@ func getEncoderLog() zapcore.Encoder {
 
 	return zapcore.NewJSONEncoder(encodeConfig)
 }
+
+// func ghi vào file
 func getWriterSync() zapcore.WriteSyncer {
 	file, _ := os.OpenFile("./logs/log-dev.txt", os.O_CREATE|os.O_WRONLY, os.ModePerm)
 	syncFile := zapcore.AddSync(file)

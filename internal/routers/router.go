@@ -2,11 +2,15 @@ package routers
 
 import (
 	c "github.com/KiAnh2911/go-crm-api-shop/internal/controller"
+	m "github.com/KiAnh2911/go-crm-api-shop/internal/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
 func NewRouter() *gin.Engine {
 	r := gin.Default()
+
+	// use the middleware
+	r.Use(m.AuthenMiddleware())
 
 	v1 := r.Group("/v1")
 	{
