@@ -1,14 +1,11 @@
 server:
   port: 8082
-databases:
-  - user: admin
-    password: admin
-    host: localhost
-    dbName: shop
-  - user: order
-    password: order
-    host: localhost
-    dbName: order
-security:
-  jwt:
-    key: abc123
+mysql:
+  host: 127.0.0.1
+  port: 33306
+  user: root
+  password: root1234
+  dbName: shopdevgo
+  maxIdleConnes: 10 # số lượng kết nối idle trong bun connect tối đa là 10
+  maxOpenConns: 100 # số lượng kết nối mở tối đa có thể default 0 do server vat ly
+  connMaxLifetime: 300 # vòng đời tối đa của 1 connect
